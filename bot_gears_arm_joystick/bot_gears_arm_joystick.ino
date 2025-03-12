@@ -1,10 +1,23 @@
 /*
-Steve Van Hoyweghen; 2025-03-O5: Eerste versie
+Steve Van Hoyweghen
 
-Een programma om met een Arduino Nano en een joystick een educatieve robot arm aan te sturen.
-De robot arm onderdelen zijn 3D geprint in PLA.
-Ik heb dit gemaakt als https://coderdojobelgium.be/nl/ vrijwilliger om te gebruiken voor de Arduino sessies.
+2025-03-05: Eerste versie
+2025-03-12: Documentatie aangepast
+
+Introductie
+~~~~~~~~~~~
+Een programma om met een Arduino Nano en een joystick een educatieve robotarm aan te sturen.
+Je kan de robotarm links-rechts en voor-achter aansturen met behulp van een joystick.
+Door op de joystick te drukken kan je afwisselend de klauw openen en sluiten.
+
+Ik heb de robotarm gebouwd en de software geschreven als https://coderdojobelgium.be/nl/
+vrijwilliger om te gebruiken tijdens de Arduino sessies.
+
 Didactische opmerkingen steeds welkom.
+
+3D Print
+~~~~~~~~
+De robot arm onderdelen zijn 3D geprint met PLA.
 
 Referenties:
 - https://projecthub.arduino.cc/bzqp/super-bot-gears-a-3d-printed-arduino-starter-kit-6d6613
@@ -13,18 +26,54 @@ Referenties:
 - https://www.thingiverse.com/thing:4176199/files
 - https://www.printables.com/model/125076-super-bot-gears-a-3d-printed-arduino-starter-kit/files
 
-- Het gebruik van de Arduino map functie:
-  https://reference.arduino.cc/reference/en/language/functions/math/map/
+Opmerkingen:
+- Enkele onderdelen geven problemen bij het genereren van de GCODE. Opgelost met deze online tool https://www.formware.co/onlinestlrepair.
+- De geprinte onderdelen zouden in elkaar moeten klemmen, maar dat deden ze niet. Ik gebruikte een gekalibreerde Bambu Lab A1.
+  Ik heb de geprinte PLA-onderdelen gelijmd met secondelijm en dat werkt prima.
+- Je hoeft niet alle onderdelen te printen als je enkel de robot arm wil bouwen.
 
+Schakeling
+~~~~~~~~~~
+JOYSTICK        ARDUINO NANO
+GND             GND
+V5+             +5V
+VRx             A5
+VRy             A6
+SW              D2
+
+SERVO X         ARDUINO NANO
+Bruine draad    GND
+Rode draad      +5V
+Gele draad      D9
+
+SERVO Y         ARDUINO NANO
+Bruine draad    GND
+Rode draad      +5V
+Gele draad      D10
+
+SERVO KLAUW     ARDUINO NANO
+Bruine draad    GND
+Rode draad      +5V
+Gele draad      D11
 
 Opmerkingen:
-- Enkele onderdelen gaven problemen bij het genereren van de gcode. Opgelost met deze online tool https://www.formware.co/onlinestlrepair.
-- De geprinte onderdelen zouden in elkaar moete klemmen, maar dat deden ze niet. Ik gebruikte een A1 van Bambu Lab die gecalibreerd is.
-  Ik heb de geprinte PLA onderdelen gelijmd met secondenlijm en dat werkt prima.
-- Ik gebruik een afzonderlijk 5V voeding voor de servo motoren.
-- Optioneel: gebruik een elco van bvb 100 µF en een keramische condensator van 100 nF om de spanningspieken van de inductieve ladingen te dempen.
+- Alles werkt op één USB 5V-voeding van 1 Ampère.
+- Om de hoogfrequente spanningspieken veroorzaakt door de inductieve belasting van de servo motoren op te vangen
+  is er tussen +5V en GND een 100nF keramische condensator geplaatst. Plaats deze zo dicht mogelijk
+  bij de +5V en GND pinnen van de Arduino Nano om deze te beschermen.
+- Tevens is er een elektrolytische condensator van 470 uF/35V in parallel geplaatst om de
+  spanningsveranderingen veroorzaakt door de servomotoren te dempen. Let op de polariteit!
+- De gebruikte waarden voor de condensatoren zijn niet zo kritisch.
+- Je kan ook een afzonderlijk 5V-voeding voor de servo motoren voorzien.
 
-Deze software is rechtenvrij en je kan het naar believen gebruiken en aanpassen. Voor alle duidelijkheid ...
+Software
+~~~~~~~~
+- Het gebruik van de Arduino map functie kan wat toelichting vergen:
+  https://reference.arduino.cc/reference/en/language/functions/math/map/
+
+Software licentie
+~~~~~~~~~~~~~~~~~
+Deze software is rechtenvrij en je kan deze naar believen gebruiken en aanpassen. Voor alle duidelijkheid ...
 
 This is free and unencumbered software released into the public domain.
 
